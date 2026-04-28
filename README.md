@@ -384,7 +384,7 @@ R1 were selected as they are typically slightly better quality than R2. Long rea
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/subset` |  
 
 #### BLASTN
-The genomic data was found to originate from Haloferax volcanii; a complete reference assembly for this organism was available from NCBI with accompanying annotation (see section: Input data [link]).
+The genomic data was found to originate from Haloferax volcanii; a complete reference assembly for this organism was available from NCBI with accompanying annotation (see section: [Input data](#input-data)).
 
 | Script              | N/A |
 |-------------------|-----------
