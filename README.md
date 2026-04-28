@@ -2,7 +2,7 @@
 
 This repository contains the scripts, methods and software used to produce the results for Rotation 1 – Group 4 of the LIFE4136 Bioinformatics module at the University of Nottingham for the 2025/2026 cohort. The samples analysed were `sample1` and `sample4`.
 
-Table of Contents [placeholder]
+Table of Contents
 =================
 
    * [Introduction](#introduction)
