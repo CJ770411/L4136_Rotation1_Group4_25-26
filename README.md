@@ -11,6 +11,7 @@ Table of Contents
       * [Overview of Workflow](#overview-of-workflow)
    * [Installation](#installation)
       * [Getting the repository](#getting-the-repository)
+      * [List of software](#list-of-software)
       * [Environments](#environments)
       * [Setting up Environments](#setting-up-the-environments)
    * [Usage](#usage)
@@ -73,6 +74,26 @@ A local repository can be made by cloning the GitHub URL (https://github.com/CJ7
 ```
 git clone https://github.com/CJ770411/L4136_Rotation1_Group4_25-26.git
 ```
+
+### List of software
+- [FastQC](https://github.com/s-andrews/FastQC) (v0.12.1)
+- [NanoPlot](https://github.com/wdecoster/NanoPlot) (v1.46.2)
+- [Unicycler](https://github.com/rrwick/Unicycler) (v0.5.1)
+- [Racon](https://github.com/lbcb-sci/racon) (v1.5.0)
+- [Pilon](https://github.com/broadinstitute/pilon) (v1.24)
+- [Picard](https://github.com/broadinstitute/picard) (v2.20.4)
+- [Seqtk](https://github.com/lh3/seqtk) (v1.5)
+- [QUAST](https://github.com/ablab/quast) (v5.3.0)
+- [Sambamba](https://github.com/biod/sambamba) (v1.0.1)
+- [Samtools](https://github.com/samtools/samtools) (v1.23)
+- [BWA](https://github.com/lh3/bwa) (v0.7.19)
+- [Minimap2](https://github.com/lh3/minimap2) (v2.30)
+- [VCFtools](https://github.com/vcftools/vcftools) (v0.1.17)
+- [Prokka](https://github.com/tseemann/prokka) (v1.15.6)
+- [GenoVi](https://github.com/robotoD/GenoVi) (v0.4.3)
+- [BCFtools](https://github.com/samtools/bcftools) (v1.19)
+- [IGV](https://github.com/igvteam/igv) (v2.19.7) 
+
 
 
 ### Environments
@@ -578,7 +599,7 @@ The number of variants in the merged VCF was counted at each of the following st
 
 
 #### Variant Annotation
-The VCF file contained genetic coordinates of variants which were used to manually visualise the variants using [IGV](https://github.com/igvteam/igv). 
+The VCF file contained genetic coordinates of variants which were used to manually visualise the variants using [IGV](https://github.com/igvteam/igv) (v2.19.7). 
 
 Regions of large structural variants undetected by `bcftools mpileup` were observable using IGV.
 
