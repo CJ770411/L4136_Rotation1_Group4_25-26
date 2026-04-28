@@ -274,9 +274,9 @@ Key for file names and paths:
 - `<ASSEMBLY>` = `shortread` `longread` or `hybrid` assembly
 - `<ANNOTATION>` = `shortread` `longread` or `hybrid` assembly annotation
 
-More detailed information regarding inputs, outputs and command descriptions for individual scripts can be found in the README located in the respective script directory: `<PATH_TO_PROJECT_ROOT>/scripts/<SCRIPT_DIRECTORY>`
+More detailed information regarding inputs, outputs and command descriptions for individual scripts can be found in the README located in the respective script directory: `<PATH_TO_PROJECT_ROOT>/scripts/<SCRIPT_DIRECTORY>`. These can also be accessed by clicking the hyperlink in the header of each method stage.
 
-### Pipeline Analysis
+### [Pipeline Analysis](scripts/00_pipeline/README.md)
 The full analysis pipeline can be executed using this script, where each script detailed in the methods is called automatically and sequentially. Completion messages are written to `<PROJECT_ROOT>_logs/00_pipeline_log_<LOG_ID>.txt` after each individual script in the pipeline has finished to track progress. The script checks whether a log file exists and will increase the `<LOG_ID>` by 1 until a unique ID is found.
 
 The script is pre-set to analyse `sample1` and `sample4`. 
@@ -290,7 +290,7 @@ The script is pre-set to analyse `sample1` and `sample4`.
 | **Output Directory** | Output directories detailed in the specific documentation for each script. | 
 
 
-### 1. Preprocessing
+### [1. Preprocessing](scripts/01_preprocessing/README.md)
 #### Define Samples for Analysis
 
 A text file containing the samples to be subjected to analysis was created. These samples will be passed into an array in each script to allow the analysis to be run in parallel. 
@@ -334,7 +334,7 @@ Raw data files were merged to capture all available data, producing a single fil
 
 
 
-### 2. Reads quality control (QC)
+### [2. Reads quality control (QC)](scripts/02_reads_qc/README.md)
 #### Short Read QC
 
 Illumina short read data quality control (QC) was performed using [FastQC](https://github.com/s-andrews/FastQC) to produce an overall quality report combining all sequencing lanes. 
@@ -389,7 +389,7 @@ The report provides a variety summary statistics and the following plots:
 | **Output Directory** | `<PROJECT_ROOT>/results/<SAMPLE>/reads_qc/longread` |  
 
 
-### 3. Identify sample origin
+### [3. Identify sample origin](scripts/03_sample_id/README.md)
 
 A reference genome was identified through a [BLASTN](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome) search using a subset sample of the R1 Illumina short reads acquired using [Seqtk](https://github.com/lh3/seqtk) as the query sequence.
 
@@ -431,7 +431,7 @@ The Haloferax *volcanii* DS2 reference genome was sourced from NCBI (https://www
 | **Output Directory** | `<PROJECT_ROOT>/data/reference/genome_assembly` <br> `<PROJECT_ROOT>/data/reference/genome_annotation` |  
 
 
-### 4. Genome assembly
+### [4. Genome assembly](scripts/04_assembly/README.md)
 A short read and long read de novo assembly was created using all available read data, and a hybrid assembly containing both short and long reads. Assemblies were constructed using [Unicycler](https://github.com/rrwick/Unicycler). 
 
 | Script              | 04_de_novo_assembly.sh |
@@ -443,7 +443,7 @@ A short read and long read de novo assembly was created using all available read
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/assembly/<ASSEMBLY>` |   
 
 
-### 5. Polish genome assemblies
+### [5. Polish genome assemblies](scripts/05_polishing/README.md)
 Assemblies were polished with short reads using [Pilon](https://github.com/broadinstitute/pilon), long reads using [Racon](https://github.com/lbcb-sci/racon) or a combination thereof, according to the following schedule:
 
 | Assembly   | Round 1     | Round 2     | Round 3     | Round 4     |
@@ -489,7 +489,7 @@ Raw assemblies and assemblies from intermediate polishing stages were ommited fr
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/polished/hybrid/<ROUND>` |  
 
 
-### 6. Genome assembly QC
+### [6. Genome assembly QC](scripts/06_assembly_qc/README.md)
 Polished assemblies were compared to raw assemblies using [QUAST](https://github.com/ablab/quast) to inspect the final quality. Individual polishing rounds were additionally assessed to observe changes during each stage of polishing. [Sambamba](https://github.com/biod/sambamba) is required to run QUAST.
 
 QUASTt quality assessment was enhanced by passing the reference assembly/annotation (Haloferax *volcanii* DS2) and the raw read data (short read R1/R2 and long read) to it.
@@ -502,7 +502,7 @@ QUASTt quality assessment was enhanced by passing the reference assembly/annotat
 | **Output** | `report.html` = quality control report for de novo genome assemblies |
 | **Output Directory** | `<PROJECT_ROOT>/results/<SAMPLE>/assembly/qc/polishing_rounds/<ASSEMBLY>` <br>  `<PROJECT_ROOT>/results/<SAMPLE>/assembly/qc/raw_vs_polished` |  
 
-### 7. Genome assembly annotation
+### [7. Genome assembly annotation](scripts/07_annotation/README.md)
 #### Annotation
 Assemblies were annotated using [Prokka](https://github.com/tseemann/prokka) which is software designed specifically for rapid prokaryotic genome assembly. [Bakta](https://github.com/oschwengers/bakta) is a more modern version of Prokka which offers improved annotation, but this was not used as Prokka was favoured due to its ease of use.
 
@@ -537,7 +537,7 @@ Annotated assemblies, and the Haloferax *volcanii* DS2 reference genome, were vi
 
 
 
-### 8. Genome assembly alignment to reference genome
+### [8. Genome assembly alignment to reference genome](scripts/08_alignment/README.md)
 The de novo assemblies must be aligned to the reference genome to enable identification of variants. Assemblies were aligned to the Haloferax *volcanii* DS2 reference genome using [Minimap2](https://github.com/lh3/minimap2). [Samtools](https://github.com/samtools/samtools) was used to create, sort and index each BAM output file.
 
 | Script              | 08_alignment.sh |
@@ -548,7 +548,7 @@ The de novo assemblies must be aligned to the reference genome to enable identif
 | **Output** | `<ASSEMBLY>_assembly_to_Haloferax.sort.bam` = sorted BAM file containing the alignment of each de novo assembly to the reference assembly |
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/aligned/<ASSEMBLY>`|  
 
-### 9. Variant analysis
+### [9. Variant analysis](scripts/09_variation/README.md)
 Regions of variation (SNPs and indels) between the de novo assemblies and the Haloferax *volcanii* DS2 reference assembly were identified, filtered then observed using an alignment visualiser to acquire annotation.
 
 VCF files were created initially for individual chromosomes then later concatenated into one merged VCF as parallelisation of chromosomes is more efficient than constructing one VCF containing all chromosomes simultaneously.
