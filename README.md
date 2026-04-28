@@ -13,6 +13,7 @@ Table of Contents
       * [Getting the repository](#getting-the-repository)
       * [List of software](#list-of-software)
       * [Environments](#environments)
+      * [Installing Conda](#installing-conda)
       * [Setting up Environments](#setting-up-the-environments)
    * [Usage](#usage)
       * [Input Data](#input-data)
@@ -76,6 +77,7 @@ git clone https://github.com/CJ770411/L4136_Rotation1_Group4_25-26.git
 ```
 
 ### List of software
+- [Conda](https://github.com/conda/conda) (v25.7.0)
 - [FastQC](https://github.com/s-andrews/FastQC) (v0.12.1)
 - [NanoPlot](https://github.com/wdecoster/NanoPlot) (v1.46.2)
 - [Unicycler](https://github.com/rrwick/Unicycler) (v0.5.1)
@@ -93,8 +95,12 @@ git clone https://github.com/CJ770411/L4136_Rotation1_Group4_25-26.git
 - [GenoVi](https://github.com/robotoD/GenoVi) (v0.4.3)
 - [BCFtools](https://github.com/samtools/bcftools) (v1.19)
 - [IGV](https://github.com/igvteam/igv) (v2.19.7) 
+- [Bandage](https://github.com/rrwick/Bandage) (v0.8.1)
 
+IGV and Bandage were installed locally following the installation instructions detailed in the respective GitHubs:
 
+**IGV:** https://github.com/igvteam/igv
+**BANDAGE:** https://github.com/rrwick/Bandage
 
 ### Environments
 The scripts in this repository require appropriate environments to be set up prior to executing. 
@@ -116,8 +122,26 @@ All software is accessible using **Conda** environments excluding Bcftools which
 **Modules**
 bcftools/1.19-GCC-13.2.0
 
+
+### Installing Conda
+Conda must be installed prior to creating the Conda environments. Installation is detailed below; official documentation can be found on the [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) website.
+
+1. Check if Conda is already installed
+
+```
+conda --version
+```
+
+Ignore the remainder of Conda installation if Conda v25.7.0+ is already installed.
+
+2. Download the appropriate macOS, Windows or Linux installer from [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) and follow the installation instructions in the Conda documentation.
+
+**Installer for macOS:** [installer](https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html)
+**Installer for Windows:** [installer](https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html)
+**Installer for Linux:** [installer](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html)
+
 ### Setting up the environments
-The following code can be used to set up all Conda environments using pre-existing `.yaml` file that contain all dependencies and software:
+Once Conda v25.7.0+ is installed, the following code can be used to set up all Conda environments using pre-existing `.yaml` files that contain all dependencies and software:
 
 > [!WARNING]
 > Do not edit the `.yaml` files as this could result in erroneous script outputs. See troubleshooting section for resolutions.
@@ -442,6 +466,8 @@ A short read and long read de novo assembly was created using all available read
 | **Output** | `shortread_assembly.fasta` = de novo short read assembly <br> `longread_assembly.fasta` = de novo long read assembly <br> `hybrid_assembly.fasta` = de novo hybrid assembly <br> |
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/assembly/<ASSEMBLY>` |   
 
+Assemblies were visualised using [Bandage](https://github.com/rrwick/Bandage) to observe contig topology.
+
 
 ### [5. Polish genome assemblies](scripts/05_polishing/README.md)
 Assemblies were polished with short reads using [Pilon](https://github.com/broadinstitute/pilon), long reads using [Racon](https://github.com/lbcb-sci/racon) or a combination thereof, according to the following schedule:
@@ -638,6 +664,7 @@ If the `.yaml` has been edited, do not execute any scripts. Ensure the environme
 
 | Software | Reference |
 |----------|----------|
+| [Conda](https://github.com/conda/conda) | Anaconda, Inc. (2024). Conda (Version 25.7.0). https://github.com/conda/conda |
 | [FastQC](https://github.com/s-andrews/FastQC) | Andrews S. (2010). FastQC: A quality control tool for high throughput sequence data. https://www.bioinformatics.babraham.ac.uk/projects/fastqc/ |
 | [NanoPlot](https://github.com/wdecoster/NanoPlot) | De Coster W, D'Hert S, Schultz DT, Cruts M, Van Broeckhoven C. (2018). NanoPack: visualizing and processing long-read sequencing data. *Bioinformatics*, 34(15), 2666–2669. https://doi.org/10.1093/bioinformatics/bty149 |
 | [Unicycler](https://github.com/rrwick/Unicycler) | Wick RR, Judd LM, Gorrie CL, Holt KE. (2017). Unicycler: Resolving bacterial genome assemblies from short and long sequencing reads. *PLoS Computational Biology*, 13(6): e1005595. https://doi.org/10.1371/journal.pcbi.1005595 |
@@ -657,5 +684,5 @@ If the `.yaml` has been edited, do not execute any scripts. Ensure the environme
 | [IGV](https://github.com/igvteam/igv) | Robinson JT et al. (2011). Integrative Genomics Viewer. *Nature Biotechnology*, 29, 24–26. https://doi.org/10.1038/nbt.1754 |
 | [GenoVi](https://github.com/robotoD/GenoVi) | Chernomor O et al. (2023). GenoVi: visualizing genomic features and synteny. https://github.com/robotoD/GenoVi |
 | [BLASTN](https://github.com/ncbi/blast_plus_docs) | Camacho C et al. (2009). BLAST+: architecture and applications. *BMC Bioinformatics*, 10:421. https://doi.org/10.1186/1471-2105-10-421 |
-
+| [Bandage](https://github.com/rrwick/Bandage) | Wick R.R., Schultz M.B., Zobel J. & Holt K.E. (2015). Bandage: interactive visualisation of de novo genome assemblies. Bioinformatics, 31(20), 3350-3352. https://doi.org/10.1093/bioinformatics/btv383|
 
