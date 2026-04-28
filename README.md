@@ -6,16 +6,35 @@ Table of Contents [placeholder]
 =================
 
    * [Introduction](#introduction)
-   * [Binary Installation](#binary-installation)
-      * [Install Stable Release](#install-stable-release)
-      * [Bioconda Install](#bioconda-install)
-      * [GNU Guix Install](#gnu-guix-install)
-      * [Debian GNU/Linux Install](#debian-gnulinux-install)
-      * [Homebrew Install](#homebrew-install)
-   * [Getting Help](#getting-help)
-      * [Reporting a Sambamba Bug or Issue](#reporting-a-sambamba-bug-or-issue)
-      * [Checklist](#checklist)
-      * [Code of Conduct](#code-of-conduct)
+      * [Reference Genome](#reference-genome)
+      * [Project Tree](#project-tree)
+      * [Overview of Workflow](#overview-of-workflow)
+   * [Installation](#installation)
+      * [Getting the repository](#getting-the-repository)
+      * [Environments](#environments)
+      * [Setting up Environments](#setting-up-the-environments)
+   * [Usage](#usage)
+      * [Input Data](#input-data)
+      * [Executing Scripts](#executing-scripts)
+   * [List of Scripts](#list-of-scripts)
+   * [Methods](#methods)
+      * [Pipeline](#pipeline-analysis)
+      * [1. Preprocessing](#1-preprocessing)
+      * [2. Reads quality control (QC)](#2-reads-quality-control-qc)
+      * [3. Identify sample origin](#3-identify-sample-origin)
+      * [4. Genome assembly](#4-genome-assembly)
+      * [5. Polish genome assemblies](#5-polish-genome-assemblies)
+      * [6. Genome assembly QC](#6-genome-assembly-qc)
+      * [7. Genome assembly annotation](#7-genome-assembly-annotation)
+      * [8. Genome assembly alignment to reference genome](#8-genome-assembly-alignment-to-reference-genome)
+      * [9. Variant analysis](#9-variant-analysis)
+   * [Troubleshooting](#troubleshooting)
+   * [Software Citations](#software-citations)
+
+
+   
+
+
 
 ## Introduction
 Raw short read (Illumina) and long read (Nanopore) genomic sequencing data were provided from two samples – `sample1` and `sample4` – of an unknown strain of microorganism where unknown genetic changes had been induced. 
@@ -149,7 +168,7 @@ This pipeline will take in raw reads in `.fastq.gz` format and produce short rea
 
 All scripts are executed using SLURM (Simple Linux Utility for Resource Management) with the `sbatch` command. The parameters (e.g. memory, allocated time etc.) are sufficient for small genomes with total read data up to 3.1GB. Parameters may need adjusting for larger genomes with a greater file sizes.
 
-#### Input Data
+### Input Data
 The pipeline requires the below as input data. The analysis was designed based on the input file sizes shown below.
 
 | Name              | Extension | Description                                              | Argument | File Size |
@@ -236,7 +255,7 @@ Key for file names and paths:
 
 More detailed information regarding inputs, outputs and command descriptions for individual scripts can be found in the README located in the respective script directory: `<PATH_TO_PROJECT_ROOT>/scripts/<SCRIPT_DIRECTORY>`
 
-#### Pipeline Analysis
+### Pipeline Analysis
 The full analysis pipeline can be executed using this script, where each script detailed in the methods is called automatically and sequentially. Completion messages are written to `<PROJECT_ROOT>_logs/00_pipeline_log_<LOG_ID>.txt` after each individual script in the pipeline has finished to track progress. The script checks whether a log file exists and will increase the `<LOG_ID>` by 1 until a unique ID is found.
 
 The script is pre-set to analyse `sample1` and `sample4`. 
@@ -250,8 +269,8 @@ The script is pre-set to analyse `sample1` and `sample4`.
 | **Output Directory** | Output directories detailed in the specific documentation for each script. | 
 
 
-#### 1. Preprocessing
-##### Define Samples for Analysis
+### 1. Preprocessing
+#### Define Samples for Analysis
 
 A text file containing the samples to be subjected to analysis was created. These samples will be passed into an array in each script to allow the analysis to be run in parallel. 
 
@@ -268,7 +287,7 @@ The samples to be analysed:
 | **Output Directory** | `<PROJECT_ROOT>` | 
 
 
-##### Merge Raw Read Data
+#### Merge Raw Read Data
 **Short Read:** Raw short read (Illumina) data was provided in separate files, split based on strand direction (R1 = sense/forward, R2 = antisense/reverse) and sequencing lane e.g.:
 
 `*R1_<LANE>.fastq.gz`
@@ -294,8 +313,8 @@ Raw data files were merged to capture all available data, producing a single fil
 
 
 
-#### 2. Reads quality control (QC)
-##### Short Read QC
+### 2. Reads quality control (QC)
+#### Short Read QC
 
 Illumina short read data quality control (QC) was performed using [FastQC](https://github.com/s-andrews/FastQC) to produce an overall quality report combining all sequencing lanes. 
 
@@ -325,7 +344,7 @@ The report summary section visually flags results as ‘pass’, ‘warning’ o
 | **Output Directory** | `<PROJECT_ROOT>/results/<SAMPLE>/reads_qc/shortread` |  
 
 
-##### Long Read QC
+#### Long Read QC
 
 Nanopore long read data QC was performed using [NanoPlot](https://github.com/wdecoster/NanoPlot). Raw pass and fail data were merged to produce a single report encompassing all long read data. 
 
@@ -349,11 +368,11 @@ The report provides a variety summary statistics and the following plots:
 | **Output Directory** | `<PROJECT_ROOT>/results/<SAMPLE>/reads_qc/longread` |  
 
 
-#### 3. Identify sample origin
+### 3. Identify sample origin
 
 A reference genome was identified through a [BLASTN](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome) search using a subset sample of the R1 Illumina short reads acquired using [Seqtk](https://github.com/lh3/seqtk) as the query sequence.
 
-##### Subset Sample
+#### Subset Sample
 R1 were selected as they are typically slightly better quality than R2. Long read subsets were omitted as the file size exceeds BLASTN search limits. 
 
 | Script              | 03a_BLASTN_subset.sh |
@@ -364,7 +383,7 @@ R1 were selected as they are typically slightly better quality than R2. Long rea
 | **Output** | `R1_subset_1000.fasta` = subset containing 1000 pseudo-random R1 short reads |
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/subset` |  
 
-##### BLASTN
+#### BLASTN
 The genomic data was found to originate from Haloferax volcanii; a complete reference assembly for this organism was available from NCBI with accompanying annotation (see section: Input data [link]).
 
 | Script              | N/A |
@@ -379,7 +398,7 @@ The genomic data was found to originate from Haloferax volcanii; a complete refe
 
 
 
-##### Retrieve Reference Genome
+#### Retrieve Reference Genome
 The Haloferax *volcanii* DS2 reference genome was sourced from NCBI (https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000025685.1/) using the FTP links.
 
 | Script              | 03b_retrieve_reference_genome.sh |
@@ -391,7 +410,7 @@ The Haloferax *volcanii* DS2 reference genome was sourced from NCBI (https://www
 | **Output Directory** | `<PROJECT_ROOT>/data/reference/genome_assembly` <br> `<PROJECT_ROOT>/data/reference/genome_annotation` |  
 
 
-#### 4. Genome assembly
+### 4. Genome assembly
 A short read and long read de novo assembly was created using all available read data, and a hybrid assembly containing both short and long reads. Assemblies were constructed using [Unicycler](https://github.com/rrwick/Unicycler). 
 
 | Script              | 04_de_novo_assembly.sh |
@@ -403,7 +422,7 @@ A short read and long read de novo assembly was created using all available read
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/assembly/<ASSEMBLY>` |   
 
 
-#### 5. Polish genome assemblies
+### 5. Polish genome assemblies
 Assemblies were polished with short reads using [Pilon](https://github.com/broadinstitute/pilon), long reads using [Racon](https://github.com/lbcb-sci/racon) or a combination thereof, according to the following schedule:
 
 | Assembly   | Round 1     | Round 2     | Round 3     | Round 4     |
@@ -419,7 +438,7 @@ Calling the [Pilon](https://github.com/broadinstitute/pilon) command `pilon` can
 Raw assemblies and assemblies from intermediate polishing stages were ommited from further processing steps - only the **final** assembly containing the highest-quality data was carried forward.
 
 
-##### Polishing (short read assembly)
+#### Polishing (short read assembly)
 
 | Script              | 05a_polish_shortread.sh |
 |-------------------|-----------
@@ -429,7 +448,7 @@ Raw assemblies and assemblies from intermediate polishing stages were ommited fr
 | **Output** | `shortread_polished_round_1.fasta` = round 1 polished short read assembly <br> `shortread_polished_round_2.fasta` = round 2 polished short read assembly. **This is the final polished assembly**. |
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/polished/shortread/<ROUND>` |  
 
-##### Polishing (long read assembly)
+#### Polishing (long read assembly)
 | Script              | 05b_polish_longread.sh |
 |-------------------|-----------
 | **Purpose** | Polishing of de novo long read genome assembly. | 
@@ -439,7 +458,7 @@ Raw assemblies and assemblies from intermediate polishing stages were ommited fr
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/polished/longread/<ROUND>` |  
 
 
-##### Polishing (hybrid assembly)
+#### Polishing (hybrid assembly)
 | Script              | 05c_polish_hybrid.sh |
 |-------------------|-----------
 | **Purpose** | Polishing of de novo hybrid genome assembly. | 
@@ -449,7 +468,7 @@ Raw assemblies and assemblies from intermediate polishing stages were ommited fr
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/polished/hybrid/<ROUND>` |  
 
 
-#### 6. Genome assembly QC
+### 6. Genome assembly QC
 Polished assemblies were compared to raw assemblies using [QUAST](https://github.com/ablab/quast) to inspect the final quality. Individual polishing rounds were additionally assessed to observe changes during each stage of polishing. [Sambamba](https://github.com/biod/sambamba) is required to run QUAST.
 
 QUASTt quality assessment was enhanced by passing the reference assembly/annotation (Haloferax *volcanii* DS2) and the raw read data (short read R1/R2 and long read) to it.
@@ -462,8 +481,8 @@ QUASTt quality assessment was enhanced by passing the reference assembly/annotat
 | **Output** | `report.html` = quality control report for de novo genome assemblies |
 | **Output Directory** | `<PROJECT_ROOT>/results/<SAMPLE>/assembly/qc/polishing_rounds/<ASSEMBLY>` <br>  `<PROJECT_ROOT>/results/<SAMPLE>/assembly/qc/raw_vs_polished` |  
 
-#### 7. Genome assembly annotation
-##### Annotation
+### 7. Genome assembly annotation
+#### Annotation
 Assemblies were annotated using [Prokka](https://github.com/tseemann/prokka) which is software designed specifically for rapid prokaryotic genome assembly. [Bakta](https://github.com/oschwengers/bakta) is a more modern version of Prokka which offers improved annotation, but this was not used as Prokka was favoured due to its ease of use.
 
 Organism-specific information was passed to the Prokka command to increase the accuracy of the annotation by refining the database Prokka uses to annotate the assembly. This information included:
@@ -497,7 +516,7 @@ Annotated assemblies, and the Haloferax *volcanii* DS2 reference genome, were vi
 
 
 
-#### 8. Genome assembly alignment to reference genome
+### 8. Genome assembly alignment to reference genome
 The de novo assemblies must be aligned to the reference genome to enable identification of variants. Assemblies were aligned to the Haloferax *volcanii* DS2 reference genome using [Minimap2](https://github.com/lh3/minimap2). [Samtools](https://github.com/samtools/samtools) was used to create, sort and index each BAM output file.
 
 | Script              | 08_alignment.sh |
@@ -508,7 +527,7 @@ The de novo assemblies must be aligned to the reference genome to enable identif
 | **Output** | `<ASSEMBLY>_assembly_to_Haloferax.sort.bam` = sorted BAM file containing the alignment of each de novo assembly to the reference assembly |
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/aligned/<ASSEMBLY>`|  
 
-#### 9. Variant analysis
+### 9. Variant analysis
 Regions of variation (SNPs and indels) between the de novo assemblies and the Haloferax *volcanii* DS2 reference assembly were identified, filtered then observed using an alignment visualiser to acquire annotation.
 
 VCF files were created initially for individual chromosomes then later concatenated into one merged VCF as parallelisation of chromosomes is more efficient than constructing one VCF containing all chromosomes simultaneously.
@@ -520,7 +539,7 @@ Chromosomes `<CHROM>` were provided in RefSeq format:
 - **NC_013964.1** = pHV3
 - **NC_013966.1** = pHV4
 
-##### Variant Identification
+#### Variant Identification
 Variant calling was performed using [BCFtools](https://github.com/samtools/bcftools). BCFtools (`bcftools mpileup`) is less effective at detecting large strucutral variants (indels) compared to other software so it is expected that not all indels were captured using this tool.
 
 Bcftools requires the unzipped reference genome assembly `.fna` instead of the gzipped version `.fna.gz`
@@ -536,7 +555,7 @@ Bcftools requires the unzipped reference genome assembly `.fna` instead of the g
 | **Output Directory** | `<PROJECT_ROOT>/data/processed/<SAMPLE>/variant/Haloferax/chromosomes`|  
 
 
-##### Variant Filtering
+#### Variant Filtering
 Individual chromosome VCF files were concatenated using [BCFtools](https://github.com/samtools/bcftools) to produce one merged VCF file containing all genomic variants.
 
 Variants were then filtered to retain only high-quality variants and remove any erroneous calls using [VCFtools](https://github.com/vcftools/vcftools).
@@ -558,7 +577,7 @@ The number of variants in the merged VCF was counted at each of the following st
 
 
 
-##### Variant Annotation
+#### Variant Annotation
 The VCF file contained genetic coordinates of variants which were used to manually visualise the variants using [IGV](https://github.com/igvteam/igv). 
 
 Regions of large structural variants undetected by `bcftools mpileup` were observable using IGV.
@@ -569,7 +588,7 @@ This section provides steps to take to resolve issues arising from the **warning
 > [!WARNING]
 > Run `conda env list` prior to installation and ensure pre-existing Conda environments do not have the same name as any environments detailed above. If the Conda environment name already exists then the incorrect environment will be activated during script the execution. See troubleshooting section for resolutions.
 
-##### Solution:
+#### Solution:
 **Option 1 (recommended):** Rename the existing Conda environment with duplicate name to something else using `conda rename -n <OLD_NAME> <NEW_NAME>` then create the Conda environment for this analysis as described above using `conda env create -f <PATH_TO_PROJECT_ROOT>/<ENVIRONMENT>.yaml`.
 
 **Option 2:** Create the Conda environment as described above using `conda env create -f <PATH_TO_PROJECT_ROOT>/<ENVIRONMENT>.yaml`. This will create an environment with the correct name but with an additional unique identifier as a suffix. Then, adjust each script that calls the specific Conda environment to reflect the new name.
@@ -579,13 +598,13 @@ This section provides steps to take to resolve issues arising from the **warning
 > [!WARNING]
 > Do not edit the `.yaml` files as this could result in erroneous script outputs. See troubleshooting section for resolutions.
 
-##### Solution:
+#### Solution:
 If the `.yaml` has been edited, do not execute any scripts. Ensure the environment is not active by running `conda deactivate` then remove the environment with `conda remove -n <ENVIRONMENT> --all`. Then you can recreate the environment following the installation instructions described above using `conda env create -f <PATH_TO_PROJECT_ROOT>/<ENVIRONMENT>.yaml`. 
 
 > [!WARNING]
 > Index files created during the analysis pipeline must remain within the folder they were created otherwise downstream scripts may fail. See troubleshooting section for resolutions.
 
-##### Solution:
+#### Solution:
 **Option 1:** Use `mv` to move the index file(s) and master files into the same directory. Caution must be taken to move the correct index file(s) and not erroneously move other files. Index files will have one of the following file extensions: `.amb`, `.ann`, `.bwt`, `.fai`, `.pac`, `.sa`, `.bai`.
 
 **Option 2:** Remove all script outputs using `rm` then repeat the analysis pipeline.
