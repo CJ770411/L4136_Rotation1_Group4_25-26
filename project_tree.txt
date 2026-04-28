@@ -1,0 +1,143 @@
+.
+|-- data
+|   |-- processed
+|   |   |-- sample1
+|   |   |   |-- aligned
+|   |   |   |   |-- hybrid
+|   |   |   |   |-- longread
+|   |   |   |   `-- shortread
+|   |   |   |-- annotated
+|   |   |   |   |-- hybrid
+|   |   |   |   |-- longread
+|   |   |   |   `-- shortread
+|   |   |   |-- assembly
+|   |   |   |   |-- hybrid
+|   |   |   |   |-- longread
+|   |   |   |   `-- shortread
+|   |   |   |-- merged_fastq
+|   |   |   |   |-- longread
+|   |   |   |   `-- shortread
+|   |   |   |-- polished
+|   |   |   |   |-- hybrid
+|   |   |   |   |   |-- round_1
+|   |   |   |   |   |-- round_2
+|   |   |   |   |   |-- round_3
+|   |   |   |   |   `-- round_4
+|   |   |   |   |-- longread
+|   |   |   |   |   |-- round_1
+|   |   |   |   |   |-- round_2
+|   |   |   |   |   |-- round_3
+|   |   |   |   |   `-- round_4
+|   |   |   |   `-- shortread
+|   |   |   |       |-- round_1
+|   |   |   |       `-- round_2
+|   |   |   |-- subset
+|   |   |   `-- variant
+|   |   |       `-- Haloferax
+|   |   |           |-- bSNP
+|   |   |           |-- chromosomes
+|   |   |           |-- filtered
+|   |   |           `-- merged
+|   |   `-- sample4
+|   |       |-- aligned
+|   |       |   |-- hybrid
+|   |       |   |-- longread
+|   |       |   `-- shortread
+|   |       |-- annotated
+|   |       |   |-- hybrid
+|   |       |   |-- longread
+|   |       |   `-- shortread
+|   |       |-- assembly
+|   |       |   |-- hybrid
+|   |       |   |-- longread
+|   |       |   `-- shortread
+|   |       |-- merged_fastq
+|   |       |   |-- longread
+|   |       |   `-- shortread
+|   |       |-- polished
+|   |       |   |-- hybrid
+|   |       |   |   |-- round_1
+|   |       |   |   |-- round_2
+|   |       |   |   |-- round_3
+|   |       |   |   `-- round_4
+|   |       |   |-- longread
+|   |       |   |   |-- round_1
+|   |       |   |   |-- round_2
+|   |       |   |   |-- round_3
+|   |       |   |   `-- round_4
+|   |       |   `-- shortread
+|   |       |       |-- round_1
+|   |       |       `-- round_2
+|   |       |-- subset
+|   |       `-- variant
+|   |           `-- Haloferax
+|   |               |-- bSNP
+|   |               |-- chromosomes
+|   |               |-- filtered
+|   |               `-- merged
+|   `-- reference
+|       |-- genome_annotation
+|       `-- genome_assembly
+|-- logs
+|-- results
+|   |-- sample1
+|   |   |-- annotation
+|   |   |   `-- visualisation
+|   |   |       |-- hybrid
+|   |   |       |   `-- hybrid_genovi
+|   |   |       |-- longread
+|   |   |       |   `-- longread_genovi
+|   |   |       |-- reference
+|   |   |       |   `-- reference_genovi
+|   |   |       `-- shortread
+|   |   |           `-- shortread_genovi
+|   |   |-- assembly
+|   |   |   |-- qc
+|   |   |   |   |-- polishing_rounds
+|   |   |   |   |   |-- hybrid
+|   |   |   |   |   |-- longread
+|   |   |   |   |   `-- shortread
+|   |   |   |   `-- raw_vs_polished
+|   |   |   `-- visualisation
+|   |   |-- reads_qc
+|   |   |   |-- longread
+|   |   |   `-- shortread
+|   |   `-- variants
+|   |       `-- Haloferax
+|   |           `-- stats
+|   `-- sample4
+|       |-- annotation
+|       |   `-- visualisation
+|       |       |-- hybrid
+|       |       |   `-- hybrid
+|       |       |-- longread
+|       |       |   `-- longread
+|       |       |-- reference
+|       |       |   `-- reference
+|       |       `-- shortread
+|       |           `-- shortread
+|       |-- assembly
+|       |   |-- qc
+|       |   |   |-- polishing_rounds
+|       |   |   |   |-- hybrid
+|       |   |   |   |-- longread
+|       |   |   |   `-- shortread
+|       |   |   `-- raw_vs_polished
+|       |   `-- visualisation
+|       |-- reads_qc
+|       |   |-- longread
+|       |   `-- shortread
+|       `-- variants
+|           `-- Haloferax
+|               `-- stats
+`-- scripts
+    |-- 00_pipeline
+    |-- 01_preprocessing
+    |-- 02_reads_qc
+    |-- 03_sample_id
+    |-- 04_assembly
+    |-- 05_polishing
+    |-- 06_assembly_qc
+    |-- 07_annotation
+    |-- 08_alignment
+    `-- 09_variation
