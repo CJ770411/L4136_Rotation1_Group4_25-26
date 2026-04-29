@@ -213,6 +213,8 @@ This pipeline will take in raw reads in `.fastq.gz` format and produce short rea
 
 All scripts are executed using SLURM (Simple Linux Utility for Resource Management) with the `sbatch` command. The parameters (e.g. memory, allocated time etc.) are sufficient for small genomes with total read data up to 3.1GB. Parameters may need adjusting for larger genomes with a greater file sizes.
 
+Directory creation for data and results is handled within the scripts.
+
 ### Input Data
 The pipeline requires the below as input data. The analysis was designed based on the input file sizes shown below.
 
