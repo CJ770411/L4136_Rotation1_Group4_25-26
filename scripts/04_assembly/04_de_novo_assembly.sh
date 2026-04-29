@@ -20,6 +20,9 @@
 ## Software used:
 #  unicycler = (purpose) de novo genome assembly
 
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
+
 ##########################
 
 
@@ -47,7 +50,7 @@ source $HOME/.bash_profile
 # Activate conda environment
 conda activate L4136_R1_G4_assembly
 
-# Load samples into an array
+# Load samples into an array for parallel processing
 mapfile -t SAMPLES < "${PROJECT_ROOT}/sample_list.txt"
 
 # Get the current sample based on SLURM_ARRAY_TASK_ID
@@ -70,7 +73,7 @@ printf "\n$(date): Creating short read output directory for ${SAMPLE} in in $SLU
 READS_R1="${PROJECT_ROOT}/data/processed/${SAMPLE}/merged_fastq/shortread/${SAMPLE}_merged_shortread_R1.fastq.gz"
 READS_R2="${PROJECT_ROOT}/data/processed/${SAMPLE}/merged_fastq/shortread/${SAMPLE}_merged_shortread_R2.fastq.gz"
 
-# Run unicycler on merged R1 and R2 short read FASTQ files
+# Run unicycler on merged R1 and R2 short read FASTQ files to create assembly
 echo "Starting short read assembly: $(date)"
 
 # Default output FASTA is "assembly.fasta"
@@ -101,7 +104,7 @@ printf "\n$(date): Creating long read output directory for ${SAMPLE} in in $SLUR
 # Define input file (raw long reads)
 READS_LONG="${PROJECT_ROOT}/data/processed/${SAMPLE}/merged_fastq/longread/${SAMPLE}_merged_longread.fastq.gz"
 
-# Run unicycler on merged long read FASTQ files
+# Run unicycler on merged long read FASTQ files to create assembly
 echo "Starting long read assembly: $(date)"
 
 # Default output FASTA is "assembly.fasta"
@@ -128,7 +131,7 @@ printf "\n$(date): Creating hybrid output directory for ${SAMPLE} in $SLURM_JOB_
 mkdir -p "$OUTDIR_HYBRID"
 printf "\n$(date): Creating hybrid output directory for ${SAMPLE} in in $SLURM_JOB_NAME: Finished.\n\n"
 
-# Run unicycler on merged hybrid read FASTQ files
+# Run unicycler on merged hybrid read FASTQ files to create assembly
 echo "Starting hybrid read assembly: $(date)"
 
 # Short and long read input FASTQ files defined above.

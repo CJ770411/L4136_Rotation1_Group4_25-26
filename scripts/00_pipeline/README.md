@@ -3,15 +3,16 @@
 
 ### Purpose
 Script to execute the analysis pipeline for Sample 1 and Sample 4:
-               1. Merge reads
-               2. Reads quality control (QC)
-               3. Identify sample origin
-               4. Genome assembly
-               5. Polish genome assemblies
-               6. Genome assembly QC
-               7. Genome assembly annotation
-               8. Genome assembly alignment to reference genome
-               9. Variant analysis
+
+1. Merge reads
+2. Reads quality control (QC)
+3. Identify sample origin
+4. Genome assembly
+5. Polish genome assemblies
+6. Genome assembly QC
+7. Genome assembly annotation
+8. Genome assembly alignment to reference genome
+9. Variant analysis
 
 ### Usage
 - ARG1 = (absolute path) FASTQ, gzipped: Sample 1, Short reads, R1
@@ -26,7 +27,7 @@ Script to execute the analysis pipeline for Sample 1 and Sample 4:
 -Use wildcards to pass multiple of the same file type in each argument. Ensure absolute paths are in quotes if it contains a wildcard e.g.:
 ``"/abs/path/to/file/H3932_S4_L00*_R1_001.fastq.gz"``
 
--This script is suitable and required for singular files in any argument as it is still necessary for these files to be re-named according to the conventions defined within this script to allow downstream processing.
+-This script is suitable and required for single files in any argument as it is still necessary for these files to be re-named according to the conventions defined within this script to allow downstream processing.
 
 -Execute from scripts directory:
 1. Navigate to script directory
@@ -38,29 +39,28 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/00_pipeline
 2. Execute script
 
 ```{bash}
-sbatch 00_pipeline <ARG1> <ARG2> <ARG3> <ARG4> <ARG5> <ARG6> <ARG7> <ARG8>
+sbatch 00_pipeline.sh <ARG1> <ARG2> <ARG3> <ARG4> <ARG5> <ARG6> <ARG7> <ARG8>
 ```
 
 
 ### Overview
 #### 1. Software
-Fastqc 0.12.1
-Nanoplot 1.46.2
-Unicycler 0.5.1
-Racon 1.5.0
-Pilon 1.24
-Picard 2.20.4
-Seqtk 1.5
-Quast 5.3.0
-Sambamba 1.0.1
-Samtools 1.23
-Bwa 0.7.19
-Minimap2 2.30
-Vcftools 0.1.17
-Prokka 1.15.6
-Genovi 0.4.3
- 
-(module) bcftools-uoneasy/1.19-GCC-13.2.0
+- Fastqc 0.12.1
+- Nanoplot 1.46.2
+- Unicycler 0.5.1
+- Racon 1.5.0
+- Pilon 1.24
+- Picard 2.20.4
+- Seqtk 1.5
+- Quast 5.3.0
+- Sambamba 1.0.1
+- Samtools 1.23
+- Bwa 0.7.19
+- Minimap2 2.30
+- Vcftools 0.1.17
+- Prokka 1.15.6
+- Genovi 0.4.3
+- (module) bcftools-uoneasy/1.19-GCC-13.2.0
 
 
 

@@ -15,7 +15,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/05_polishing
 2. Execute script
 
 ```{bash}
-sbatch 05a_polish_shortread
+sbatch 05a_polish_shortread.sh
 ```
 
 
@@ -235,7 +235,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/05_polishing
 2. Execute script
 
 ```{bash}
-sbatch 05b_polish_longread
+sbatch 05b_polish_longread.sh
 ```
 
 
@@ -497,7 +497,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/05_polishing
 2. Execute script
 
 ```{bash}
-sbatch 05c_polish_hybrid
+sbatch 05c_polish_hybrid.sh
 ```
 
 

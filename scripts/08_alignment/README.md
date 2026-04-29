@@ -15,7 +15,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/08_alignment
 2. Execute script
 
 ```{bash}
-sbatch 08_alignment
+sbatch 08_alignment.sh
 ```
 
 

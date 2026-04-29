@@ -15,7 +15,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/03_sample_id
 2. Execute script
 
 ```{bash}
-sbatch 03a_BLASTN_subset
+sbatch 03a_BLASTN_subset.sh
 ```
 
 
@@ -79,7 +79,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/03_sample_id
 2. Execute script
 
 ```{bash}
-sbatch 03b_retrieve_reference_genome
+sbatch 03b_retrieve_reference_genome.sh
 ```
 
 

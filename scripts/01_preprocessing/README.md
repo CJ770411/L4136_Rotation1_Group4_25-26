@@ -15,7 +15,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/01_preprocessing
 2. Execute script
 
 ```{bash}
-sbatch 01a_create_sample_list
+sbatch 01a_create_sample_list.sh
 ```
 
 
@@ -63,7 +63,7 @@ Script to merge multiple files of raw short read (Illumina) and long read (Nanop
 Use wildcards to pass multiple of the same file type in each argument. Ensure absolute paths are in quotes if it contains a wildcard e.g.:
 ``"/abs/path/to/file/H3932_S4_L00*_R1_001.fastq.gz"``
 
-This script is suitable and required for singular files in any argument as it is still necessary for these files to be re-named according to the conventions defined within this script to allow downstream processing.
+This script is suitable and required for single files in any argument as it is still necessary for these files to be re-named according to the conventions defined within this script to allow downstream processing.
 
 Execute from scripts directory:
 1. Navigate to script directory
@@ -75,7 +75,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/01_preprocessing
 2. Execute script
 
 ```{bash}
-sbatch 01b_merge_raw_reads <ARG1> <ARG2> <ARG3> <ARG4> <ARG5> <ARG6> <ARG7> <ARG8>
+sbatch 01b_merge_raw_reads.sh <ARG1> <ARG2> <ARG3> <ARG4> <ARG5> <ARG6> <ARG7> <ARG8>
 ```
 
 

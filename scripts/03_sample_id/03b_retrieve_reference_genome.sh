@@ -20,6 +20,9 @@
 #  BWA = (purpose) index reference genome
 #  Samtools = (purpose) index reference genome
 
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
+
 ##########################
 
 

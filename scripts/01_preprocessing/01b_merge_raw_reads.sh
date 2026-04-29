@@ -9,35 +9,44 @@
 #SBATCH --job-name=01b_merge_raw_reads
 #SBATCH --output=../../logs/slurm-%x-%j.out
 
+##########################
 
-### Script to merge multiple files of raw short read (Illumina) 
-### and long read (Nanopore) sequencing data and save the output 
-### in the correct file location and with the correct designation
-### for downstream processing
+## Author: Chris Janschke
+## Date: 23.04.2026
+## Description: Script to merge multiple files of raw short read (Illumina) 
+#				and long read (Nanopore) sequencing data and save the output 
+#				in the correct file location and with the correct designation
+#				for downstream processing
+## Usage: 
+#	 Execute from script directory
+#	 ARGUMENTS
+#	 ARG1 = (absolute path) FASTQ, gzipped: Sample 1, Short reads, R1
+#	 ARG2 = (absolute path) FASTQ, gzipped: Sample 1, Short reads, R2
+#	 ARG3 = (absolute path) FASTQ, gzipped: Sample 1, Long reads, pass data
+#	 ARG4 = (absolute path) FASTQ, gzipped: Sample 1, Long reads, fail data
+#	 ARG5 = (absolute path) FASTQ, gzipped: Sample 4, Short reads, R1
+#	 ARG6 = (absolute path) FASTQ, gzipped: Sample 4, Short reads, R2
+#	 ARG7 = (absolute path) FASTQ, gzipped: Sample 4, Long reads, pass data
+#	 ARG8 = (absolute path) FASTQ, gzipped: Sample 4, Long reads, fail data
 
-# Execute from script directory
+#	 Use wildcards to pass multiple of the same file type in each argument.
+#	 Ensure absolute paths are in quotes if it conains a wildcard e.g. 
+#	 "/abs/path/to/file/H3932_S4_L00*_R1_001.fastq.gz"
 
-## ARGUMENTS
-# ARG1 = (absolute path) FASTQ, gzipped: Sample 1, Short reads, R1
-# ARG2 = (absolute path) FASTQ, gzipped: Sample 1, Short reads, R2
-# ARG3 = (absolute path) FASTQ, gzipped: Sample 1, Long reads, pass data
-# ARG4 = (absolute path) FASTQ, gzipped: Sample 1, Long reads, fail data
-# ARG5 = (absolute path) FASTQ, gzipped: Sample 4, Short reads, R1
-# ARG6 = (absolute path) FASTQ, gzipped: Sample 4, Short reads, R2
-# ARG7 = (absolute path) FASTQ, gzipped: Sample 4, Long reads, pass data
-# ARG8 = (absolute path) FASTQ, gzipped: Sample 4, Long reads, fail data
+#	 This script is suitable for single files in any argument as it is still 
+#	 necessary for these files to be re-named according to the conventions 
+#	 defined within this script to allow downstream processing
 
-# Use wildcards to pass multiple of the same file type in each argument.
-# Ensure absolute paths are in quotes if it contains a wildcard e.g.
-# "/abs/path/to/file/H3932_S4_L00*_R1_001.fastq.gz"
+#    Example usage:
+#    $0 <S1_SR_R1> <S1_SR_R2> <S1_LR_PASS> <S1_LR_FAIL> <S4_SR_R1> <S4_SR_R2> <S4_LR_PASS> <S4_LR_FAIL>  
 
+## Software used:
+#  Software defined in constituent scripts.
 
-# This script is suitable and required for singular files in any argument as it is still 
-# necessary for these files to be re-named according to the conventions
-# defined within this script to allow downstream processing
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
 
-# Example usage:
-# $0 <S1_SR_R1> <S1_SR_R2> <S1_LR_PASS> <S1_LR_FAIL> <S4_SR_R1> <S4_SR_R2> <S4_LR_PASS> <S4_LR_FAIL>  
+##########################
 
 
 ## Set error handling 

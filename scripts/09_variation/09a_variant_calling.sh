@@ -23,6 +23,9 @@
 ## Software used:
 #  bcftools = (purpose) perform pileup, variant calling, normalisation and indexing
 
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
+
 ##########################
 
 
@@ -46,6 +49,7 @@ if [ ! -f "$SCRIPT" ]; then
 fi
 
 # Load bcftools module
+# Replace "uoneasy" dependent on the module that corresponds to your system
 module load bcftools-uoneasy/1.19-GCC-13.2.0 
 
 # Define reference assembly (Haloferax volcanii)
@@ -60,7 +64,7 @@ CHR_LIST="${PROJECT_ROOT}/data/reference/genome_assembly/chr.names.txt"
 # Write chromosome names to TXT file
 printf "%s\n" "NC_013967.1" "NC_013968.1" "NC_013965.1" "NC_013964.1" "NC_013966.1" > "$CHR_LIST"
 
-# Load chromosomes names into an array
+# Load chromosomes names into an array for parallel processing
 mapfile -t ROOTS < "$CHR_LIST"
 CHROM=${ROOTS[$SLURM_ARRAY_TASK_ID]}
 

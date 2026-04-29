@@ -27,6 +27,9 @@
 #  Racon = (purpose) polish using long read data
 #  Pilon = (purpose) polish using short read data
 
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
+
 ##########################
 
 
@@ -55,7 +58,7 @@ source $HOME/.bash_profile
 # Activate conda environment
 conda activate L4136_R1_G4_assembly
 
-# Load samples into an array
+# Load samples into an array for parallel processing
 mapfile -t SAMPLES < "${PROJECT_ROOT}/sample_list.txt"
 
 # Get the current sample based on SLURM_ARRAY_TASK_ID

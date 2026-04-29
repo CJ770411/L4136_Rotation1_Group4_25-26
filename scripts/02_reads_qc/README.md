@@ -15,7 +15,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/02_reads_qc
 2. Execute script
 
 ```{bash}
-sbatch 02a_shortread_qc
+sbatch 02a_shortread_qc.sh
 ```
 
 
@@ -74,7 +74,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/02_reads_qc
 2. Execute script
 
 ```{bash}
-sbatch 02a_shortread_qc
+sbatch 02a_shortread_qc.sh
 ```
 
 

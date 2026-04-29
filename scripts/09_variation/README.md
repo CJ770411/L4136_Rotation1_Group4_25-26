@@ -18,7 +18,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/09_variation
 2. Execute script
 
 ```{bash}
-sbatch 09a_variant_calling
+sbatch 09a_variant_calling.sh
 ```
 
 
@@ -110,9 +110,9 @@ bcftools index <SAMPLE_CHROMOSOME.vcf.gz>
 
 ### Purpose
 Script to filter variants from VCF files created in script 09a_variant_calling:
-    1. Concatenate 'per chromosome' VCF files into merged VCF
-    2. Filter merged VCF
-    3. Filter to retain only biallelic SNPs
+1. Concatenate 'per chromosome' VCF files into merged VCF
+2. Filter merged VCF
+3. Filter to retain only biallelic SNPs
 
 ### Usage
 Execute from scripts directory:
@@ -125,7 +125,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/09_variation
 2. Execute script
 
 ```{bash}
-sbatch 09b_variant_filter
+sbatch 09b_variant_filter.sh
 ```
 
 

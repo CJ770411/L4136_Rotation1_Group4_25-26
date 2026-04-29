@@ -20,6 +20,9 @@
 ## Software used:
 #  Prokka = (purpose) perform genome annotation
 
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
+
 ##########################
 
 # Set error handling
@@ -46,7 +49,7 @@ source $HOME/.bash_profile
 # Activate conda environment
 conda activate L4136_R1_G4_annotation
 
-# Load samples into an array
+# Load samples into an array for parallel processing
 mapfile -t SAMPLES < "${PROJECT_ROOT}/sample_list.txt"
 
 # Get the current sample based on SLURM_ARRAY_TASK_ID
@@ -72,7 +75,7 @@ SHORT_ASMBLY="${PROJECT_ROOT}/data/processed/${SAMPLE}/polished/shortread/round_
 # Initiating Prokka
 printf "\n$(date): Running Prokka for short read assembly annotation.\n\n"
 
-# Run Prokka
+# Run Prokka to create annotation
 prokka "$SHORT_ASMBLY" \
 --outdir "$OUTDIR_SHORT" --force \
 --prefix "${SAMPLE}_shortread_annotated" \
@@ -104,7 +107,7 @@ LONG_ASMBLY="${PROJECT_ROOT}/data/processed/${SAMPLE}/polished/longread/round_4/
 # Initiating Prokka
 printf "\n$(date): Running Prokka for long read assembly annotation.\n\n"
 
-# Run Prokka
+# Run Prokka to create annotation
 prokka "$LONG_ASMBLY" \
 --outdir "$OUTDIR_LONG" --force \
 --prefix "${SAMPLE}_longread_annotated" \
@@ -136,7 +139,7 @@ HYBRID_ASMBLY="${PROJECT_ROOT}/data/processed/${SAMPLE}/polished/hybrid/round_4/
 # Initiating Prokka
 printf "\n$(date): Running Prokka for hybrid assembly annotation.\n\n"
 
-# Run Prokka
+# Run Prokka to create annotation
 prokka "$HYBRID_ASMBLY" \
 --outdir "$OUTDIR_HYBRID" --force \
 --prefix "${SAMPLE}_hybrid_annotated" \

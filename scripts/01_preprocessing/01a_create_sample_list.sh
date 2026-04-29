@@ -9,11 +9,24 @@
 #SBATCH --job-name=01a_create_sample_list
 #SBATCH --output=../../logs/slurm-%x-%j.out
 
-### Script to create "sample_list.txt" containing the samples to be tested in this analysis
+##########################
 
-## Samples:
+## Author: Chris Janschke
+## Date: 29.04.2026
+## Description: Script to create "sample_list.txt" containing the samples to be tested in this analysis
+
+## Usage: 
+#	Execute from script directory 
+
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
+
+## Samples for analysis:
 # Sample 1
 # Sample 4
+
+##########################
+
 
 # Set error handling
 # PARAMETERS:
@@ -47,5 +60,5 @@ printf "%s\n" "$SAMPLE1" "$SAMPLE4" > "${PROJECT_ROOT}/sample_list.txt"
 echo "Creating text file containing ${SAMPLE1} and ${SAMPLE4}: Completed"
 
 # Display contents of the file
-echo "Here is the text file"
+echo "Here is the contents of the text file"
 cat "${PROJECT_ROOT}/sample_list.txt"

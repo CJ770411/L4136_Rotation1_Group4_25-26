@@ -39,7 +39,7 @@
 #	 Ensure absolute paths are in quotes if it conains a wildcard e.g. 
 #	 "/abs/path/to/file/H3932_S4_L00*_R1_001.fastq.gz"
 
-#	 This script is suitable for singular files in any argument as it is still 
+#	 This script is suitable for single files in any argument as it is still 
 #	 necessary for these files to be re-named according to the conventions 
 #	 defined within this script to allow downstream processing
 
@@ -48,6 +48,9 @@
 
 ## Software used:
 #  Software defined in constituent scripts.
+
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
 
 ##########################
 

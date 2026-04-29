@@ -15,7 +15,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/07_annotation
 2. Execute script
 
 ```{bash}
-sbatch 07a_annotation
+sbatch 07a_annotation.sh
 ```
 
 
@@ -121,10 +121,10 @@ prokka <HYBRID_ASSEMBLY_POLISHED_ROUND_4.fasta> \
 
 ### Purpose
 Script to perform annotation visualisation of:
-    1. Haloferax volcanii reference assembly
-    2. Short read genome assembly
-    3. Long read genome assembly
-    4. Hybrid genome assembly
+1. Haloferax volcanii reference assembly
+2. Short read genome assembly
+3. Long read genome assembly
+4. Hybrid genome assembly
 
 ### Usage
 Execute from scripts directory:
@@ -137,7 +137,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/07_annotation
 2. Execute script
 
 ```{bash}
-sbatch 07b_annotation_visualisation
+sbatch 07b_annotation_visualisation.sh
 ```
 
 

@@ -24,6 +24,9 @@
 #  bcftools = (purpose) concatenate VCF files and filter to retain only biallelic SNPs
 #  vcftools = (purpose) filter VCF data
 
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
+
 ##########################
 
 
@@ -53,9 +56,10 @@ source $HOME/.bash_profile
 conda activate L4136_R1_G4_alignment
 
 # Load bcftools module
+# Replace "uoneasy" dependent on the module that corresponds to your system
 module load bcftools-uoneasy/1.19-GCC-13.2.0 
 
-# Load samples into an array
+# Load samples into an array for parallel processing
 mapfile -t SAMPLES < "${PROJECT_ROOT}/sample_list.txt"
 
 # Get the current sample based on SLURM_ARRAY_TASK_ID
@@ -163,7 +167,7 @@ printf "\n$(date): Creating filtered VCF (biallelic SNPs only) output directory 
 # Define output file (filtered merged VCF containing only SNPs)
 VCF_FILTERED_BSNP="$OUTDIR_BSNPS/${SAMPLE}_merged_filtered_q20b.vcf.gz"
 
-# Run bcftools
+# Run bcftools to retain only biallelic SNPs
 bcftools view \
 -Oz \
 --max-alleles 2 \

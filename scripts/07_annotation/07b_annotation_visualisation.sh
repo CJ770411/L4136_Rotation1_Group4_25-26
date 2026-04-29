@@ -24,6 +24,9 @@
 ## Software used:
 #  GenoVi = (purpose) genome annotation visualisation
 
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
+
 ##########################
 
 
@@ -51,7 +54,7 @@ source $HOME/.bash_profile
 # Activate conda environment
 conda activate L4136_R1_G4_genovi
 
-# Load samples into an array
+# Load samples into an array for parallel processing
 mapfile -t SAMPLES < "${PROJECT_ROOT}/sample_list.txt"
 
 # Get the current sample based on SLURM_ARRAY_TASK_ID
@@ -79,7 +82,7 @@ REF_ANNOT="${PROJECT_ROOT}/data/reference/genome_annotation/GCF_000025685.1_ASM2
 # Initiating Genovi
 printf "\n$(date): Running Genovi for reference assembly annotation.\n\n"
 
-# Run Genovi
+# Run Genovi to create annotation visualisation
 genovi \
 -i "$REF_ANNOT" \
 -s draft \
@@ -114,7 +117,7 @@ SHORT_ANNOT="${PROJECT_ROOT}/data/processed/${SAMPLE}/annotated/shortread/${SAMP
 # Initiating Genovi
 printf "\n$(date): Running Genovi for short read assembly annotation.\n\n"
 
-# Run Genovi
+# Run Genovi to create annotation visualisation
 genovi \
 -i "$SHORT_ANNOT" \
 -s draft \
@@ -150,7 +153,7 @@ LONG_ANNOT="${PROJECT_ROOT}/data/processed/${SAMPLE}/annotated/longread/${SAMPLE
 # Initiating Genovi
 printf "\n$(date): Running Genovi for long read assembly annotation.\n\n"
 
-# Run Genovi
+# Run Genovi to create annotation visualisation
 genovi \
 -i "$LONG_ANNOT" \
 -s draft \
@@ -186,7 +189,7 @@ HYBRID_ANNOT="${PROJECT_ROOT}/data/processed/${SAMPLE}/annotated/hybrid/${SAMPLE
 # Initiating Genovi
 printf "\n$(date): Running Genovi for hybrid assembly annotation.\n\n"
 
-# Run Genovi
+# Run Genovi to create annotation visualisation
 genovi \
 -i "$HYBRID_ANNOT" \
 -s draft \

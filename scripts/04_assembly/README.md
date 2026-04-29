@@ -15,7 +15,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/04_assembly
 2. Execute script
 
 ```{bash}
-sbatch 04_de_novo_assembly
+sbatch 04_de_novo_assembly.sh
 ```
 
 

@@ -10,12 +10,20 @@
 #SBATCH --output=../../logs/slurm-%x-%j.out
 #SBATCH --array=0-1 # Two samples
 
-### Script to perform QC on long read Nanopore data
+##########################
 
-## EXECUTE FROM SCRIPT DIRECTORY
+## Author: Chris Janschke
+## Date: 21.04.2026
+## Description: Script to perform QC on long read Nanopore data.
+## Usage: Execute from script directory
 
 ## Software used:
-## nanoplot
+#  Nanoplot (purpose) produce quality control report
+
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
+
+##########################
 
 # Set error handling
 # PARAMETERS:
@@ -41,7 +49,7 @@ source $HOME/.bash_profile
 # Activate conda environment
 conda activate L4136_R1_G4_quality_control
 
-# Load samples into an array
+# Load samples into an array for parallel processing
 mapfile -t SAMPLES < "${PROJECT_ROOT}/sample_list.txt"
 
 # Get the current sample based on SLURM_ARRAY_TASK_ID
@@ -63,7 +71,7 @@ echo "Creating long read output directory for ${SAMPLE}: Finished"
 READS="${PROJECT_ROOT}/data/processed/${SAMPLE}/merged_fastq/longread/${SAMPLE}_merged_longread.fastq.gz"
 
 
-# Run nanoplot on merged long read fastq file
+# Run nanoplot on merged long read fastq file to produce quality reports
 NanoPlot \
 -t $SLURM_CPUS_PER_TASK \
 --fastq $READS \

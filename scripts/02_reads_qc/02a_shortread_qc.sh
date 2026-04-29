@@ -18,7 +18,10 @@
 ## Usage: Execute from script directory
 
 ## Software used:
-#  fastqc
+#  fastqc (purpose) produce quality control report
+
+## Command descriptions:
+#  See script README for detailed command description and other useful information.
 
 ##########################
 
@@ -46,7 +49,7 @@ source $HOME/.bash_profile
 # Activate conda environment
 conda activate L4136_R1_G4_quality_control
 
-# Load samples into an array
+# Load samples into an array for parallel processing
 mapfile -t SAMPLES < "${PROJECT_ROOT}/sample_list.txt"
 
 # Get the current sample based on SLURM_ARRAY_TASK_ID
@@ -66,7 +69,7 @@ echo "Creating short read output directory: Finished"
 R1="${PROJECT_ROOT}/data/processed/${SAMPLE}/merged_fastq/shortread/${SAMPLE}_merged_shortread_R1.fastq.gz"
 R2="${PROJECT_ROOT}/data/processed/${SAMPLE}/merged_fastq/shortread/${SAMPLE}_merged_shortread_R2.fastq.gz"
 
-## Run FastQC on merged forward and reverse short read Illumina data
+## Run FastQC on merged forward and reverse short read Illumina data to produce quality reports
 fastqc \
 $R1 \
 $R2 \

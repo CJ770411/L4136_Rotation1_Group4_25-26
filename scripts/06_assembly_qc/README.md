@@ -19,7 +19,7 @@ cd <PATH_TO_PROJECT_ROOT>/scripts/06_assembly_qc
 2. Execute script
 
 ```{bash}
-sbatch 06_assembly_qc
+sbatch 06_assembly_qc.sh
 ```
 
 
